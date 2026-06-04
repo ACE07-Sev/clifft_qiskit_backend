@@ -11,6 +11,8 @@
 
 This is a custom Qiskit `BackendV2` sampler interface to simulate Qiskit circuits on `clifft` simulator. The work presents a simplified wrapping of the conversion and sampling logic using Qiskit's pipeline for compatibility within the Qiskit ecosystem.
 
+unitaryHACK2026 PR.
+
 ```
 ├── notebooks                   # Applications and examples using the backend
 |
