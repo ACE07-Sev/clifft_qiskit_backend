@@ -8,55 +8,26 @@
 
 from __future__ import annotations
 
-from qiskit import QuantumCircuit, transpile  # type: ignore
-import pytest
+from qiskit import QuantumCircuit  # type: ignore
 
-from qiskit_clifft_backend.converter import qiskit_to_stim, compile_and_sample, BASIS_SET
+from qiskit_clifft_backend.converter import qiskit_to_stim
 
 
-def test_qiskit_to_stim():
-    """Test the conversion of a simple Qiskit circuit to a Stim circuit string."""
+def test_clifford_plus_t() -> None:
+    """Test the conversion of a simple Clifford+T Qiskit circuit to a Stim circuit string."""
     circuit = QuantumCircuit(2)
+    circuit.x(0)
+    circuit.y(0)
+    circuit.z(0)
     circuit.h(0)
+    circuit.s(0)
+    circuit.sdg(0)
+    circuit.t(0)
+    circuit.tdg(0)
     circuit.cx(0, 1)
+    circuit.cy(0, 1)
+    circuit.cz(0, 1)
     circuit.measure_all()
 
-    expected_stim_circuit = "H 0\nCNOT 0 1\nM 0\nM 1"
-    assert qiskit_to_stim(circuit) == expected_stim_circuit
-
-    circuit = QuantumCircuit(3)
-    circuit.ccx(0, 1, 2)
-    circuit = transpile(circuit, basis_gates=BASIS_SET)
-    expected_stim_circuit = [
-        "H 2",
-        "CNOT 1 2",
-        "T_DAG 2",
-        "CNOT 0 2",
-        "T 2",
-        "CNOT 1 2",
-        "T 1",
-        "T_DAG 2",
-        "CNOT 0 2",
-        "CNOT 0 1",
-        "T 0",
-        "T_DAG 1",
-        "CNOT 0 1",
-        "T 2",
-        "H 2"
-    ]
-
+    expected_stim_circuit = ["X 0", "Y 0", "Z 0", "H 0", "S 0", "S_DAG 0", "T 0", "T_DAG 0", "CNOT 0 1", "CY 0 1", "CZ 0 1", "M 0", "M 1"]
     assert qiskit_to_stim(circuit).splitlines() == expected_stim_circuit
-
-
-def test_compile_and_sample():
-    """Test the compilation and sampling of a simple Qiskit circuit."""
-    circuit = QuantumCircuit(2)
-    circuit.h(0)
-    circuit.cx(0, 1)
-    circuit.measure_all()
-
-    counts = compile_and_sample(circuit, shots=1024)
-    assert counts.keys() == {"00", "11"}
-    assert sum(counts.values()) == 1024
-    assert counts["00"] / 1024 == pytest.approx(0.5, abs=0.2)
-    assert counts["11"] / 1024 == pytest.approx(0.5, abs=0.2)

@@ -19,6 +19,7 @@ This is a custom Qiskit `BackendV2` sampler interface to simulate Qiskit circuit
 │   ├── backend.py              #       - The `BackendV2` wrapper which takes a `qiskit.QuantumCircuit`,
 |   |                           #         transpiles to Clifford+T gateset, and simulates via `clifft`
 |   |                           #         sampler.
+|   |                           #         [x, y, z, h, s, sdg, t, tdg, cx, cy, cz, measure]
 │   ├── converter.py            #       - Conversion logic from `qiskit.QuantumCircuit` to a str following
 |   |                           #         stim's syntax. This is meant for internal use and assumes the circuit
 |   |                           #         is using only what is mentioned in `BASIS_SET`.
@@ -34,6 +35,27 @@ This is a custom Qiskit `BackendV2` sampler interface to simulate Qiskit circuit
 ```
 
 ## Getting Started
+
+### Quick Start
+
+```py
+from qiskit import QuantumCircuit
+from qiskit_clifft_backend import ClifftProvider
+
+qc = QuantumCircuit(2, 2)
+qc.h(0)
+qc.cx(0, 1)
+qc.measure_all()
+
+backend = ClifftProvider().get_backend("clifft")
+
+counts = backend.run(qc, shots=1024).result.get_counts()
+```
+
+### Limitations
+
+This backend does not support dynamic circuits, aka circuits with classical control flow or mid-circuit measurement. Additionally, this backend
+serves mainly as a sampler.
 
 ### Prerequisites
 

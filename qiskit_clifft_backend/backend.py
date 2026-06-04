@@ -114,6 +114,12 @@ class ClifftBackend(BackendV2):
         if isinstance(run_input, QuantumCircuit):
             run_input = [run_input]
 
+        for qc in run_input:
+            if qc.has_control_flow_op():
+                raise ValueError("Control flow operations are not supported.")
+            elif qc.count_ops().get("reset", 0) > 0:
+                raise ValueError("Reset operations are not supported.")
+
         experiment_results = [
             ExperimentResult(
                 shots=shots,
