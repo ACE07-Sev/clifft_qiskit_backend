@@ -31,7 +31,7 @@ MAPPING = {
     "measure": "M",
 }
 BASIS_SET = list(MAPPING.keys())
-SKIP_GATES = ["barrier", "global_phase", "delay"]
+SKIP_GATES = ["barrier", "delay", "global_phase"]
 
 
 def qiskit_to_stim(circuit: QuantumCircuit) -> str:
