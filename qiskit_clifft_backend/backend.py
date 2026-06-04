@@ -22,8 +22,7 @@ from qiskit_clifft_backend.converter import BASIS_SET, compile_and_sample
 
 class ClifftSamplerJob(JobV1):
     """`ClifftSamplerJob` is a wrapper around Qiskit's `JobV1` that holds the result
-    of a job executed on the `ClifftBackend`. It provides methods to retrieve
-    the result, check the job status, and cancel the job if needed.
+    of a job executed on the `ClifftBackend`.
 
     Parameters
     ----------
