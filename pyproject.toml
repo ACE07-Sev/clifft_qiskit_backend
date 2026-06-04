@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools >= 69.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qiskit_clifft_backend"
+version = "0.1.0rc"
+dependencies = [
+    "clifft",
+    "qiskit>=1.0"
+]
+requires-python = ">=3.11, <3.14"
+authors = [
+  { name = "Brad Chase", email = "brad@unitary.foundation" },
+  { name = "Farrokh Labib", email = "farrokh@unitary.foundation"},
+  { name = "Amir Ali Malekani Nezhad", email = "amiralimlk07@gmail.com"},
+]
+maintainers = [
+  { name = "Brad Chase", email = "brad@unitary.foundation" },
+  { name = "Farrokh Labib", email = "farrokh@unitary.foundation"},
+]
+description = "Qiskit backend for executing circuits on Clifft simulator."
+readme = "README.md"
+license = {file = "LICENSE"}
+keywords = ["quantum computing", "quantum simulator", "clifft"]
+
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Operating System :: OS Independent"
+]
+
+[project.optional-dependencies]
+dev = [
+  "ruff",
+  "mypy",
+  "pytest",
+  "pytest-cov",
+  "coverage",
+]
+
+[project.urls]
+Repository = "https://github.com/ACE07-Sev/qiskit_clifft_backend.git"
+"Bug Tracker" = "https://github.com/ACE07-Sev/qiskit_clifft_backend/issues"
+
+[tool.setuptools.packages.find]
+include = ["qiskit_clifft_backend*"]
+
+[tool.setuptools.package-data]
+"qiskit_clifft_backend" = ["py.typed"]
+
+[tools.pyright]
+include = ["qiskit_clifft_backend", "tests"]
+typeCheckingMode = "strict"
