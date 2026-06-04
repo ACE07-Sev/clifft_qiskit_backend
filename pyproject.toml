@@ -50,6 +50,9 @@ include = ["qiskit_clifft_backend*"]
 [tool.setuptools.package-data]
 "qiskit_clifft_backend" = ["py.typed"]
 
+[tools.mypy]
+exclude = [".venv"]
+
 [tools.pyright]
 include = ["qiskit_clifft_backend", "tests"]
 typeCheckingMode = "strict"

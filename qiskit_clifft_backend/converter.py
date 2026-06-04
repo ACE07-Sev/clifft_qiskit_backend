@@ -9,7 +9,7 @@
 from __future__ import annotations
 
 from qiskit import QuantumCircuit  # type: ignore
-import clifft
+import clifft  # type: ignore
 
 # The current basis set follows a Clifford+T gate set
 # To extend the supported gate set, simply add the corresponding mapping to the MAPPING dictionary

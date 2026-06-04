@@ -33,7 +33,7 @@ jobs:
                   coverage xml
 
             - name: Type Check with mypy
-              run: mypy qiskit_clifft_backend
+              run: mypy qiskit_clifft_backend --no-site-packages
 
             - name: Lint with ruff
               run: ruff check qiskit_clifft_backend
